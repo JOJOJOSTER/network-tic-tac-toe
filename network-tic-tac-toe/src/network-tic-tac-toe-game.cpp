@@ -1,4 +1,4 @@
-#include "../include/non-network-tic-tac-toe-game.h"
+#include "../include/network-tic-tac-toe-game.h"
 
 bool GameTicTacToe::inputCoordinateForStep(int &x, int &y) {
   std::string coordinate;
