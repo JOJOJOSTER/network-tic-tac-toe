@@ -11,6 +11,7 @@ public:
   class Player {
   public:
     Player(int number, char symbol) : m_number(number), m_symbol(symbol) {}
+    Player(const Player &other) = default;
 
     void setNumber(int number) { m_number = number; }
     void setSymbol(char symbol) { m_symbol = symbol; }
