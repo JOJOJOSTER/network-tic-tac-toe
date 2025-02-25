@@ -6,6 +6,23 @@
 #include <sstream>
 
 class GameTicTacToe {
+
+public:
+  class Player {
+  public:
+    Player(int number, char symbol) : m_number(number), m_symbol(symbol) {}
+
+    void setNumber(int number) { m_number = number; }
+    void setSymbol(char symbol) { m_symbol = symbol; }
+
+    int getNumber() const { return m_number; }
+    char getSymbol() const { return m_symbol; }
+
+  private:
+    int m_number;
+    char m_symbol;
+  };
+
 public:
   GameTicTacToe() : map(3, 3) {}
 
@@ -18,18 +35,13 @@ public:
 
   void inputCoordinateUntilGetCorrect(int &x, int &y);
 
-  struct Player {
-    char symbol;
-  };
-
-  const Player &getCurrentPlayerWhoDoMove(const std::array<Player, 2> &players,
-                                          int moves) {
+  const Player &getCurrentPlayerWhoDoMoveBetweenTwoPlayers(
+      const std::array<Player, 2> &players, int moves) {
     return players[moves % 2];
   }
 
-  const Player &
-  getOtherPlayerWhoWillMoveInNextRound(const std::array<Player, 2> &players,
-                                       int moves);
+  const Player &getPlayerWhoDoNotMoveNovBeetweenTwoPlayers(
+      const std::array<Player, 2> &players, int moves);
 
   void playerMove(const Player &player);
 

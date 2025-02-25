@@ -34,7 +34,7 @@ void GameTicTacToe::inputCoordinateUntilGetCorrect(int &x, int &y) {
 }
 
 const GameTicTacToe::Player &
-GameTicTacToe::getOtherPlayerWhoWillMoveInNextRound(
+GameTicTacToe::getPlayerWhoDoNotMoveNovBeetweenTwoPlayers(
     const std::array<Player, 2> &players, int moves) {
   int currentPlayer = moves % 2;
 
@@ -65,7 +65,7 @@ void GameTicTacToe::playerMove(const Player &player) {
     break;
   }
 
-  map.setSymbolToMap(x, y, player.symbol);
+  map.setSymbolToMap(x, y, player.getSymbol());
 }
 
 bool GameTicTacToe::isWinOnThreeGridMap(const Player &player) {
@@ -74,7 +74,7 @@ bool GameTicTacToe::isWinOnThreeGridMap(const Player &player) {
   for (int iii = 0; iii < 3; ++iii) {
     if (map.getSymbolFromMap(iii, 0) == map.getSymbolFromMap(iii, 1) &&
         map.getSymbolFromMap(iii, 1) == map.getSymbolFromMap(iii, 2) &&
-        map.getSymbolFromMap(iii, 0) == player.symbol) {
+        map.getSymbolFromMap(iii, 0) == player.getSymbol()) {
       return true;
     }
   }
@@ -82,20 +82,20 @@ bool GameTicTacToe::isWinOnThreeGridMap(const Player &player) {
   for (int iii = 0; iii < 3; ++iii) {
     if (map.getSymbolFromMap(0, iii) == map.getSymbolFromMap(1, iii) &&
         map.getSymbolFromMap(1, iii) == map.getSymbolFromMap(2, iii) &&
-        map.getSymbolFromMap(0, iii) == player.symbol) {
+        map.getSymbolFromMap(0, iii) == player.getSymbol()) {
       return true;
     }
   }
 
   if (map.getSymbolFromMap(0, 0) == map.getSymbolFromMap(1, 1) &&
       map.getSymbolFromMap(1, 1) == map.getSymbolFromMap(2, 2) &&
-      map.getSymbolFromMap(0, 0) == player.symbol) {
+      map.getSymbolFromMap(0, 0) == player.getSymbol()) {
     return true;
   }
 
   if (map.getSymbolFromMap(2, 0) == map.getSymbolFromMap(1, 1) &&
       map.getSymbolFromMap(1, 1) == map.getSymbolFromMap(0, 2) &&
-      map.getSymbolFromMap(2, 0) == player.symbol) {
+      map.getSymbolFromMap(2, 0) == player.getSymbol()) {
     return true;
   }
 
@@ -106,7 +106,7 @@ bool GameTicTacToe::game() {
 
   std::cout << "Welcome to game" << std::endl << std::endl;
 
-  std::array<Player, 2> players{'X', 'O'};
+  std::array<Player, 2> players({Player(1, 'X'), Player(2, 'O')});
 
   int movesCounter = 0;
 
@@ -119,11 +119,12 @@ bool GameTicTacToe::game() {
   while (movesCounter <= maxMovesInGame) {
 
     // symbol cyrrent player
-    Player currentPlayer = getCurrentPlayerWhoDoMove(players, movesCounter);
+    Player currentPlayer =
+        getCurrentPlayerWhoDoMoveBetweenTwoPlayers(players, movesCounter);
 
     std::cout << std::endl;
 
-    std::cout << movesCounter % 2 + 1 << " player step: " << std::endl;
+    std::cout << currentPlayer.getNumber() << " player step: " << std::endl;
 
     playerMove(currentPlayer);
 
@@ -133,8 +134,8 @@ bool GameTicTacToe::game() {
     Map::PrintMap::printSquareMapWithSeparators(map);
 
     if (isWinOnThreeGridMap(currentPlayer)) {
-      std::cout << "Player " << movesCounter % 2 + 1 << " ("
-                << currentPlayer.symbol << ") is winner!" << std::endl;
+      std::cout << "Player " << currentPlayer.getNumber() << " ("
+                << currentPlayer.getSymbol() << ") is winner!" << std::endl;
       return true;
     }
   }
