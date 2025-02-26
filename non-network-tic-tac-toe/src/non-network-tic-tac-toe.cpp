@@ -7,9 +7,7 @@ int main() {
 
   GameTicTacToe game;
 
-  if (!game.game()) {
-    std::cout << "No one win" << std::endl;
-  }
+  game.game();
 
   /*
     Map map;

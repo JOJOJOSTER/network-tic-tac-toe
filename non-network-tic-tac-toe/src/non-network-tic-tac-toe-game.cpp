@@ -102,7 +102,7 @@ bool GameTicTacToe::isWinOnThreeGridMap(const Player &player) {
   return false;
 }
 
-bool GameTicTacToe::game() {
+void GameTicTacToe::game() {
 
   std::cout << "Welcome to game" << std::endl << std::endl;
 
@@ -136,9 +136,9 @@ bool GameTicTacToe::game() {
     if (isWinOnThreeGridMap(currentPlayer)) {
       std::cout << "Player " << currentPlayer.getNumber() << " ("
                 << currentPlayer.getSymbol() << ") is winner!" << std::endl;
-      return true;
+      break;
     }
   }
 
-  return false;
+  std::cout << "No one win" << std::endl;
 }

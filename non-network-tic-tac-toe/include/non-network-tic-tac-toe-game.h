@@ -48,7 +48,7 @@ public:
 
   bool isWinOnThreeGridMap(const Player &player);
 
-  bool game();
+  void game();
 
 private:
   Map map;
